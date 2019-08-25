@@ -1,0 +1,51 @@
+PushOut!
+
+- Choques
+ -- Aplicar fuerzas en la direccion en que se encuentren los jugadores y el punto de colision
+ Falta Mejorar
+
+- Colisiones con nivel
+ - Colision con objetos, paredes, obstaculos en general
+
+- Caida
+ -- Cae cuando sale de la plataforma o nivel
+ - Efecto de caida, el sprite se va achicando hasta desaparecer
+
+- Efectos
+ - Al aparecer y al morir
+
+- Shaders
+ - Al aparecer podemos aplicar un shader
+ - Al ganar un rayo laser lleva (abduce) al ganador
+
+- Ubicaciones de inicio
+ -- Seleccionar ubicaciones de inicio segun el nivel
+
+-- Menu
+ -- Nombre
+ -- Boton Jugar
+
+---------------------------------------------------------------------------------------------------------
+
+ MODOS de JUEGO:
+ 1 vida
+ mejor de 3
+
+ 3 NIVELES
+
+---------------------------------------------------------------------------------------------------------
+
+VERSION PC (2 jugadores con WASD y flechas)
+
+- Movimiento
+ -- En 360 grados, con un poco de aceleracion y deslizamiento (WASD y flechas)
+
+---------------------------------------------------------------------------------------------------------
+
+VERSION MOBILE (Acelerometro e IA)
+
+- Movimiento
+ - Por ahora con teclas, mas adelante agregar el acelerometro
+
+- IA
+ - La IA tiene que perseguir y esquivar por ahora
