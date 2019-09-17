@@ -1,36 +1,43 @@
 extends RigidBody2D
 
-var MAX_SPEED = 500
-var motion = Vector2()
-
-var limit 
-signal golpe
 signal p1_die
 
 var mover = true
 var posicion_salida
 var _scale = Vector2(1, 1)
+var dashing = false
 
-export var velocity = 5
+onready var joystick = get_parent().get_node("joystick/joystick_Button")
+export var move_speed = 300.0
+#Shader
+var time = 0
+
+#Buttons
+export var right = ""
+export var left = ""
+export var down = ""
+export var up = ""
+export var dash = ""
 
 func _ready():
-	limit = get_viewport_rect().size
+	if(!Global.MOBILE):
+		get_parent().get_node("joystick").hide()
 
 func _physics_process(delta):
-	if(mover):
-		if Input.is_action_pressed("D"):
-			self.apply_impulse(Vector2(0,0), Vector2(velocity,0))
-		if Input.is_action_pressed("A"):
-			self.apply_impulse(Vector2(0,0), Vector2(-velocity,0))
-		if Input.is_action_pressed("W"):
-			self.apply_impulse(Vector2(0,0), Vector2(0,-velocity))
-		if Input.is_action_pressed("S"):
-			self.apply_impulse(Vector2(0,0), Vector2(0,velocity))
-	else:
-		position = posicion_salida	
+	if(!mover):
+		position = posicion_salida
 		
-	if Input.is_action_just_pressed("ui_select"):
+	if Input.is_action_just_pressed(dash) && !dashing:
 		dash()
+		
+func get_move_direction() -> Vector2:
+	return joystick.get_value()
+
+func get_input_axis():
+	var axis = Vector2.ZERO
+	axis.x = int(Input.is_action_pressed(right)) - int(Input.is_action_pressed(left))
+	axis.y = int(Input.is_action_pressed(down)) - int(Input.is_action_pressed(up))
+	return axis.normalized()
 		
 func _process(delta):
 	if(!mover):
@@ -40,68 +47,55 @@ func _process(delta):
 	if(scale.x < 0):
 		hide()
 	
+	#Shader
+	time += delta
+	if(time <= 2):
+		$Sprite_Player.material.set_shader_param("alpha", time/2)
 	
 func choque(body):
 	#Si choco con el enemigo
 	if(body == get_parent().get_node("Enemy")):
-		self.apply_impulse(position, (position - get_parent().get_node("Enemy").position)*3)
+		#print('chocaJugador')
+		apply_central_impulse((position - get_parent().get_node("Enemy").position)*100)
+		get_parent().get_node("Sound").play()
 	
-
-func get_input_axis():
-	var axis = Vector2.ZERO
-	axis.x = int(Input.is_action_pressed("D")) - int(Input.is_action_pressed("A"))
-	axis.y = int(Input.is_action_pressed("S")) - int(Input.is_action_pressed("W"))
-	return axis.normalized()
-	
-func apply_friction(amount):
-	if motion.length() > amount:
-		motion -= motion.normalized() * amount
-	else:
-		motion = Vector2.ZERO
-	
-func apply_movement(acceleration):
-	motion += acceleration
-	motion = motion.clamped(MAX_SPEED)
-
 func _on_Player_body_entered(body):
-	#hide()
-	#emit_signal("golpe")
-	#$Collider.disabled = true
 	choque(body)
 	
 func _integrate_forces( state ):
-	var contacts = state.get_contact_local_position(0)
+	var contacts
+	if state.get_contact_count() > 0:
+		contacts = state.get_contact_local_position(0)
+	
+	var move_direction
+	
+	if(Global.MOBILE):
+		move_direction = get_move_direction()
+	else:
+		move_direction = get_input_axis()
+		
+	if(mover && Global.gameStart):
+		linear_velocity.x = move_direction.x * move_speed
+		linear_velocity.y = move_direction.y * move_speed
 	
 	if(state.get_contact_count() > 0):
-		print(contacts)
+		#print(contacts)
 		var particles = load("res://Particles.tscn").instance()
-		particles.set_position(contacts)	
+		particles.set_position(contacts)
 		get_parent().add_child(particles)
-		#$Particles.position = contacts
 
 func _on_Area2D_body_exited(body):
 	#Al salir de pantalla el PJ se queda quieto y se achica
 	if(body == self):
 		mover = false
-		motion = 0
 		posicion_salida = position
-	#Esconder
-	#body.hide()
-	#Cargar escena de menu
-	#get_tree().change_scene('res://Menu.tscn')
-
-	#if body.name == 'Player':
-		#position = get_parent().get_node("PlayerPosition").position
-	#else:
-		#body.position = get_parent().get_node("EnemyPosition").position
 		
 func dash():
-#	set_linear_velocity((get_linear_velocity()*2))
-	velocity = 40
-	$TimerPJ.start()
+	dashing = true
+	move_speed = move_speed * 3
 	print(get_linear_velocity())
-
-
+	$TimerPJ.start()
+	
 func _on_TimerPJ_timeout():
-	velocity = 5
-	set_linear_velocity(Vector2(0,0))
+	move_speed = 300
+	dashing = false
