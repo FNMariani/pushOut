@@ -20,4 +20,4 @@ func _on_StartTimer_timeout():
 
 
 func _on_BackButton_pressed():
-	get_tree().change_scene("res://Menu.tscn")
+	get_tree().change_scene("res://Menu/Menu.tscn")

@@ -14,7 +14,6 @@
 [ext_resource path="res://sounds/sfx_hit_[motion-s].wav" type="AudioStream" id=12]
 [ext_resource path="res://Menu/BackButton.tscn" type="PackedScene" id=13]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 568.252, 283.762 )
 
@@ -150,8 +149,8 @@ margin_top = 4.0
 margin_right = 141.0
 margin_bottom = 64.0
 script = null
-[connection signal="body_exited" from="Area2D" to="Enemy" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="Area2D" to="Player" method="_on_Area2D_body_exited"]
+[connection signal="body_exited" from="Area2D" to="Enemy" method="_on_Area2D_body_exited"]
 [connection signal="body_entered" from="Player" to="Player" method="_on_Player_body_entered"]
 [connection signal="p1_die" from="Player" to="WinnerText" method="_on_Player_p1_die"]
 [connection signal="timeout" from="Player/TimerPJ" to="Player" method="_on_TimerPJ_timeout"]
