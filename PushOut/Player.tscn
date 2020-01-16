@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://aparecer.shader" type="Shader" id=2]
 [ext_resource path="res://Sprites/P1 .png" type="Texture" id=3]
 [ext_resource path="res://tools/debug_draw.tscn" type="PackedScene" id=4]
-
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
@@ -20,6 +19,8 @@ animations = [ {
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 57.4062
+
+[sub_resource type="RectangleShape2D" id=4]
 
 [node name="Player" type="RigidBody2D"]
 contacts_reported = 1
@@ -40,3 +41,6 @@ shape = SubResource( 3 )
 
 [node name="debug_draw" parent="." instance=ExtResource( 4 )]
 visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 4 )

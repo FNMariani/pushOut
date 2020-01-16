@@ -16,7 +16,7 @@ var time = 0
 
 func _ready():
 	#Escondemos el joystick del PJ2
-	if(!Global.MOBILE):
+	if(!OS.has_feature("mobile")):
 		get_parent().get_node("joystick2").hide()
 
 func _physics_process(delta):
@@ -25,11 +25,10 @@ func _physics_process(delta):
 		
 	if Input.is_action_just_pressed("0"):
 		dash()
-		
+	
 func _integrate_forces(state):
-	#Movemos la AI
 	mover_AI()
-		
+	
 func _process(delta):
 	if(!mover):
 		_scale = _scale - Vector2(delta, delta)
@@ -49,13 +48,6 @@ func choque(body):
 
 func _on_Enemy_body_entered(body):
 	choque(body)
-
-func _on_Area2D_body_exited(body):
-	#Al salir de pantalla el PJ se queda quieto y se achica
-	print(self, body)
-	if(body == self):
-		mover = false
-		posicion_salida = position
 	
 func dash():
 	dashing = true
@@ -78,14 +70,22 @@ func mover_AI():
 		var delta_X = target_position.x - position.x
 		var delta_Y = target_position.y - position.y
 		
-		move_direction = Vector2(delta_X, delta_Y).normalized()
-		
-		if(!p1_die):
-			linear_velocity.x = move_direction.x * move_speed
-			linear_velocity.y = move_direction.y * move_speed
-		else:
-			#El enemigo deberia frenar si el P1 muere
-			set_linear_velocity(get_linear_velocity().slerp(Vector2.ZERO,5))
+		if((abs(delta_X) + abs(delta_Y)) > 200):
+			move_direction = Vector2(delta_X, delta_Y).normalized()
+			
+			if(!p1_die):
+				linear_velocity.x = move_direction.x * move_speed
+				linear_velocity.y = move_direction.y * move_speed
+			else:
+				#El enemigo deberia frenar si el P1 muere
+				set_linear_velocity(get_linear_velocity().slerp(Vector2.ZERO,5))
 
 func _on_Player_p1_die():
 	p1_die = true
+
+
+func _on_Area2D_body_shape_exited(body_id, body, body_shape, area_shape):
+	#Al salir de pantalla el PJ se queda quieto y se achica
+	if((body == self) && (body_shape == 1)):
+		mover = false
+		posicion_salida = position

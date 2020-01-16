@@ -46,20 +46,19 @@ alignment = 1
 margin_top = 68.0
 margin_right = 518.0
 margin_bottom = 128.0
-scene_to_load = "res://Game.tscn"
+scenes = [ "res://Game.tscn", "res://lvl3.tscn" ]
 
 [node name="vsIA_Button" parent="Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
 margin_top = 148.0
 margin_right = 518.0
 margin_bottom = 208.0
-scene_to_load = "res://AI_Game.tscn"
+scenes = [ "res://AI_Game.tscn" ]
 
 [node name="OptionsButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 4 )]
 visible = false
-margin_top = 160.0
+margin_top = 188.0
 margin_right = 518.0
-margin_bottom = 220.0
-scene_to_load = ""
+margin_bottom = 248.0
 
 [node name="OnlineButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 5 )]
 visible = false
@@ -96,6 +95,7 @@ visible = false
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 8 )
+volume_db = -15.0
 autoplay = true
 attenuation = 0.258816
 [connection signal="fade_finished" from="FadeIn" to="." method="_on_FadeIn_fade_finished"]

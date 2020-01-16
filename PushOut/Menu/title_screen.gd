@@ -3,6 +3,7 @@ extends Control
 var scene_path_to_load
 
 func _ready():
+	randomize()
 	#Cada boton se conecta a la variable string de escena a cargar
 	$Menu/CenterRow/Buttons/vsP2_Button.grab_focus()
 	for button in $Menu/CenterRow/Buttons.get_children():

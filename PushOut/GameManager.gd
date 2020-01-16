@@ -18,6 +18,5 @@ func _on_StartTimer_timeout():
 	Global.gameStart = true
 	get_node("StarText").text = ""
 
-
 func _on_BackButton_pressed():
 	get_tree().change_scene("res://Menu/Menu.tscn")

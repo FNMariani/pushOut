@@ -17,7 +17,6 @@
 [ext_resource path="res://sounds/sfx_hit_[motion-s].wav" type="AudioStream" id=15]
 [ext_resource path="res://Menu/BackButton.tscn" type="PackedScene" id=16]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 568.252, 283.762 )
 
@@ -56,6 +55,7 @@ wait_time = 0.5
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
+editor/display_folded = true
 position = Vector2( 644.815, 353.59 )
 scale = Vector2( 0.679999, 1 )
 __meta__ = {
@@ -82,6 +82,7 @@ position = Vector2( 354.283, 362.425 )
 position = Vector2( 958.235, 354.367 )
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
+editor/display_folded = true
 position = Vector2( 354.368, 356.676 )
 mode = 2
 right = "D"
@@ -144,10 +145,12 @@ script = ExtResource( 13 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
+volume_db = -15.0
 autoplay = true
 
 [node name="Sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
+volume_db = -15.0
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -155,9 +158,8 @@ one_shot = true
 autostart = true
 
 [node name="BackButton" parent="." instance=ExtResource( 16 )]
-scene_to_load = "res://Menu.tscn"
-[connection signal="body_exited" from="Area2D" to="Enemy" method="_on_Area2D_body_exited"]
-[connection signal="body_exited" from="Area2D" to="Player" method="_on_Area2D_body_exited"]
+[connection signal="body_shape_exited" from="Area2D" to="Enemy" method="_on_Area2D_body_shape_exited"]
+[connection signal="body_shape_exited" from="Area2D" to="Player" method="_on_Area2D_body_shape_exited"]
 [connection signal="body_entered" from="Player" to="Player" method="_on_Player_body_entered"]
 [connection signal="p1_die" from="Player" to="Enemy" method="_on_Player_p1_die"]
 [connection signal="p1_die" from="Player" to="WinnerText" method="_on_Player_p1_die"]

@@ -15,23 +15,23 @@
 [ext_resource path="res://sounds/lvl1_[levelclearer].ogg" type="AudioStream" id=13]
 [ext_resource path="res://sounds/sfx_hit_[motion-s].wav" type="AudioStream" id=14]
 
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.0
+bounce = 5000.0
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 7 )
+shader_param/alpha = null
+
 [sub_resource type="PhysicsMaterial" id=3]
 friction = 0.0
 bounce = 5000.0
 
-[sub_resource type="ShaderMaterial" id=4]
-shader = ExtResource( 7 )
-shader_param/alpha = null
-
-[sub_resource type="PhysicsMaterial" id=5]
-friction = 0.0
-bounce = 5000.0
-
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=4]
 size = 64
 font_data = ExtResource( 8 )
 
-[sub_resource type="ShaderMaterial" id=7]
+[sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 7 )
 shader_param/alpha = null
 
@@ -70,7 +70,6 @@ stretch_mode = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 visible = false
-scale = Vector2( 1, 1 )
 polygon = PoolVector2Array( -193.311, -349.742, 184.903, -349.742, 184.903, -286.601, 281.532, -286.601, 281.532, -221.92, 372.877, -221.92, 372.877, -159.292, 463.182, -159.481, 463.182, -94.5654, 561.427, -94.5654, 561.427, -31.5403, 656.7, -31.4643, 656.7, 31.4459, 564.803, 31.2398, 564.803, 95.5887, 464.915, 95.5887, 464.915, 155.965, 372.036, 155.965, 372.036, 220.711, 276.237, 220.711, 276.236, 285.06, 184.526, 285.06, 184.526, 349.012, -192.245, 349.012, -192.245, 284.663, -283.955, 284.663, -283.955, 220.314, -377.417, 220.314, -377.417, 158.348, -473.801, 158.348, -473.801, 93.2051, -571.936, 93.2051, -571.936, 28.8562, -666.567, 28.8561, -666.567, -31.1234, -571.352, -31.1234, -571.352, -93.8834, -473.216, -93.8834, -473.216, -158.232, -382.091, -158.232, -382.091, -220.992, -288.628, -220.992, -288.628, -285.341, -192.829, -285.341 )
 
 [node name="PlayerPosition" type="Position2D" parent="."]
@@ -82,7 +81,7 @@ position = Vector2( 958.235, 354.367 )
 [node name="Player" parent="." instance=ExtResource( 5 )]
 position = Vector2( 354.368, 356.676 )
 mode = 2
-physics_material_override = SubResource( 3 )
+physics_material_override = SubResource( 1 )
 right = "D"
 left = "A"
 down = "S"
@@ -94,10 +93,10 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Enemy" parent="." instance=ExtResource( 6 )]
-material = SubResource( 4 )
+material = SubResource( 2 )
 position = Vector2( 959.485, 351.497 )
 mode = 2
-physics_material_override = SubResource( 5 )
+physics_material_override = SubResource( 3 )
 
 [node name="TimerP2" type="Timer" parent="Enemy"]
 wait_time = 0.5
@@ -107,7 +106,7 @@ one_shot = true
 anchor_right = 1.0
 margin_top = 150.357
 margin_bottom = 225.357
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 4 )
 align = 1
 valign = 1
 script = ExtResource( 9 )
@@ -121,7 +120,7 @@ margin_left = -640.0
 margin_top = -37.5
 margin_right = 640.0
 margin_bottom = 37.5
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 4 )
 text = "READY?"
 align = 1
 valign = 1
@@ -134,24 +133,26 @@ position = Vector2( 1163.48, 359.07 )
 
 [node name="CubeShader" type="Sprite" parent="."]
 visible = false
-material = SubResource( 7 )
+material = SubResource( 5 )
 position = Vector2( 203.805, 206.022 )
 texture = ExtResource( 11 )
 script = ExtResource( 12 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
+volume_db = -15.0
 autoplay = true
 
 [node name="Sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
+volume_db = -15.0
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 autostart = true
-[connection signal="body_exited" from="Area2D" to="Player" method="_on_Area2D_body_exited"]
-[connection signal="body_exited" from="Area2D" to="Enemy" method="_on_Area2D_body_exited"]
+[connection signal="body_shape_exited" from="Area2D" to="Player" method="_on_Area2D_body_shape_exited"]
+[connection signal="body_shape_exited" from="Area2D" to="Enemy" method="_on_Area2D_body_shape_exited"]
 [connection signal="body_entered" from="Player" to="Player" method="_on_Player_body_entered"]
 [connection signal="p1_die" from="Player" to="WinnerText" method="_on_Player_p1_die"]
 [connection signal="timeout" from="Player/TimerPJ" to="Player" method="_on_TimerPJ_timeout"]

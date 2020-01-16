@@ -1,18 +1,20 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://GameManager.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Fondo/Nebula Blue.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Fondo/Stars Small_1.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/FloorTreadPattern-3v2_UR_1024.png" type="Texture" id=4]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Enemy.tscn" type="PackedScene" id=6]
-[ext_resource path="res://aparecer.shader" type="Shader" id=7]
-[ext_resource path="res://Font/E-SQUARE_demo.otf" type="DynamicFontData" id=8]
-[ext_resource path="res://winnerText.gd" type="Script" id=9]
-[ext_resource path="res://joystick.tscn" type="PackedScene" id=10]
-[ext_resource path="res://sounds/lvl1_[levelclearer].ogg" type="AudioStream" id=11]
-[ext_resource path="res://sounds/sfx_hit_[motion-s].wav" type="AudioStream" id=12]
-[ext_resource path="res://Menu/BackButton.tscn" type="PackedScene" id=13]
+[ext_resource path="res://stars.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/FloorTreadPattern-3v2_UR_1024.png" type="Texture" id=5]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://aparecer.shader" type="Shader" id=8]
+[ext_resource path="res://Font/E-SQUARE_demo.otf" type="DynamicFontData" id=9]
+[ext_resource path="res://winnerText.gd" type="Script" id=10]
+[ext_resource path="res://joystick.tscn" type="PackedScene" id=11]
+[ext_resource path="res://sounds/lvl1_[levelclearer].ogg" type="AudioStream" id=12]
+[ext_resource path="res://sounds/sfx_hit_[motion-s].wav" type="AudioStream" id=13]
+[ext_resource path="res://Menu/BackButton.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Spawner.gd" type="Script" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 568.252, 283.762 )
@@ -22,7 +24,7 @@ friction = 0.0
 bounce = 5000.0
 
 [sub_resource type="ShaderMaterial" id=3]
-shader = ExtResource( 7 )
+shader = ExtResource( 8 )
 shader_param/alpha = null
 
 [sub_resource type="PhysicsMaterial" id=4]
@@ -31,7 +33,7 @@ bounce = 5000.0
 
 [sub_resource type="DynamicFont" id=5]
 size = 64
-font_data = ExtResource( 8 )
+font_data = ExtResource( 9 )
 
 [node name="Game" type="Node"]
 script = ExtResource( 1 )
@@ -42,9 +44,29 @@ position = Vector2( 657.741, 544.404 )
 scale = Vector2( 0.326678, 0.326678 )
 texture = ExtResource( 2 )
 
-[node name="Stars Small_1" type="Sprite" parent="Nebula Blue"]
-position = Vector2( -152.407, -72.5609 )
+[node name="stars" type="Sprite" parent="Nebula Blue"]
+position = Vector2( 0, 17.318 )
 texture = ExtResource( 3 )
+script = ExtResource( 4 )
+velocity = Vector2( 0, 100 )
+
+[node name="stars_2" type="Sprite" parent="Nebula Blue"]
+position = Vector2( 0, -3764.92 )
+texture = ExtResource( 3 )
+script = ExtResource( 4 )
+velocity = Vector2( 0, 100 )
+
+[node name="stars_3" type="Sprite" parent="Nebula Blue"]
+position = Vector2( 59.7573, -4053.74 )
+texture = ExtResource( 3 )
+script = ExtResource( 4 )
+velocity = Vector2( 0, 50 )
+
+[node name="stars_4" type="Sprite" parent="Nebula Blue"]
+position = Vector2( 29.8784, -550.373 )
+texture = ExtResource( 3 )
+script = ExtResource( 4 )
+velocity = Vector2( 0, 50 )
 
 [node name="EnemyTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -52,8 +74,7 @@ wait_time = 0.5
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
-editor/display_folded = true
-position = Vector2( 644.815, 353.59 )
+position = Vector2( 645, 355 )
 scale = Vector2( 0.679999, 1 )
 __meta__ = {
 "_edit_group_": true
@@ -68,9 +89,21 @@ margin_left = -567.0
 margin_top = -284.0
 margin_right = 565.0
 margin_bottom = 279.0
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 2
+
+[node name="up" type="Position2D" parent="Area2D"]
+position = Vector2( -566.856, -277.233 )
+
+[node name="left" type="Position2D" parent="Area2D"]
+position = Vector2( -565.471, -250.662 )
+
+[node name="right" type="Position2D" parent="Area2D"]
+position = Vector2( 570.667, -217.247 )
+
+[node name="down" type="Position2D" parent="Area2D"]
+position = Vector2( -565.834, 277.516 )
 
 [node name="PlayerPosition" type="Position2D" parent="."]
 position = Vector2( 354.283, 362.425 )
@@ -78,7 +111,7 @@ position = Vector2( 354.283, 362.425 )
 [node name="EnemyPosition" type="Position2D" parent="."]
 position = Vector2( 958.235, 354.367 )
 
-[node name="Player" parent="." instance=ExtResource( 5 )]
+[node name="Player" parent="." instance=ExtResource( 6 )]
 position = Vector2( 354.368, 356.676 )
 mode = 2
 physics_material_override = SubResource( 2 )
@@ -92,7 +125,8 @@ dash = "ui_select"
 wait_time = 0.5
 one_shot = true
 
-[node name="Enemy" parent="." instance=ExtResource( 6 )]
+[node name="Enemy" parent="." instance=ExtResource( 7 )]
+editor/display_folded = true
 material = SubResource( 3 )
 position = Vector2( 959.485, 351.497 )
 mode = 2
@@ -109,7 +143,7 @@ margin_bottom = 225.357
 custom_fonts/font = SubResource( 5 )
 align = 1
 valign = 1
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 
 [node name="StarText" type="Label" parent="."]
 anchor_left = 0.5
@@ -125,32 +159,42 @@ text = "READY?"
 align = 1
 valign = 1
 
-[node name="joystick" parent="." instance=ExtResource( 10 )]
+[node name="joystick" parent="." instance=ExtResource( 11 )]
 position = Vector2( 107.826, 362.166 )
 
-[node name="joystick2" parent="." instance=ExtResource( 10 )]
+[node name="joystick2" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1163.48, 359.07 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
+stream = ExtResource( 12 )
+volume_db = -15.0
 autoplay = true
 
 [node name="Sound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 12 )
+stream = ExtResource( 13 )
+volume_db = -15.0
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 autostart = true
 
-[node name="BackButton" parent="." instance=ExtResource( 13 )]
+[node name="BackButton" parent="." instance=ExtResource( 14 )]
 margin_left = 41.0
 margin_top = 4.0
 margin_right = 141.0
 margin_bottom = 64.0
 script = null
-[connection signal="body_exited" from="Area2D" to="Player" method="_on_Area2D_body_exited"]
-[connection signal="body_exited" from="Area2D" to="Enemy" method="_on_Area2D_body_exited"]
+
+[node name="Spawner" type="Node" parent="."]
+script = ExtResource( 15 )
+timerPath = NodePath("Timer")
+minWaitTime = 5.0
+maxWaitTime = 10.0
+
+[node name="Timer" type="Timer" parent="Spawner"]
+[connection signal="body_shape_exited" from="Area2D" to="Player" method="_on_Area2D_body_shape_exited"]
+[connection signal="body_shape_exited" from="Area2D" to="Enemy" method="_on_Area2D_body_shape_exited"]
 [connection signal="body_entered" from="Player" to="Player" method="_on_Player_body_entered"]
 [connection signal="p1_die" from="Player" to="WinnerText" method="_on_Player_p1_die"]
 [connection signal="timeout" from="Player/TimerPJ" to="Player" method="_on_TimerPJ_timeout"]
@@ -158,3 +202,4 @@ script = null
 [connection signal="timeout" from="Enemy/TimerP2" to="Enemy" method="_on_TimerP2_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_Timer_timeout"]

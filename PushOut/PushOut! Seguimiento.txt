@@ -77,3 +77,13 @@ IDEAS
 ---------------------------------------------------------------------------------------------------------
 
 Version 0.1
+
+
+---------------------------------------------------------------------------------------------------------
+Multiplayer Online (off)
+https://www.youtube.com/watch?v=TGIWD24QIvY&list=PLKCbXu2bxxqa2PtT2rYNb4t5QUsotrTlP
+https://godot3tutorials.wordpress.com/
+https://docs.godotengine.org/es/latest/tutorials/networking/high_level_multiplayer.html
+https://github.com/godotengine/godot-demo-projects/tree/master/networking/multiplayer_bomber
+https://www.youtube.com/watch?v=Xu3LtVihYoo
+https://www.youtube.com/watch?v=JuRhRhJ2914
