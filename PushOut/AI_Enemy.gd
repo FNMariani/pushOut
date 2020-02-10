@@ -83,7 +83,6 @@ func mover_AI():
 func _on_Player_p1_die():
 	p1_die = true
 
-
 func _on_Area2D_body_shape_exited(body_id, body, body_shape, area_shape):
 	#Al salir de pantalla el PJ se queda quieto y se achica
 	if((body == self) && (body_shape == 1)):

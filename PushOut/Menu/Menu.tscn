@@ -46,13 +46,13 @@ alignment = 1
 margin_top = 68.0
 margin_right = 518.0
 margin_bottom = 128.0
-scenes = [ "res://Game.tscn", "res://lvl3.tscn" ]
+scenes = [ "res://levels/lvl1.tscn", "res://levels/lvl2.tscn" ]
 
 [node name="vsIA_Button" parent="Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
 margin_top = 148.0
 margin_right = 518.0
 margin_bottom = 208.0
-scenes = [ "res://AI_Game.tscn" ]
+scenes = [ "res://levels/AI_Game.tscn" ]
 
 [node name="OptionsButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 4 )]
 visible = false

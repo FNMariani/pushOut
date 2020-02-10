@@ -22,10 +22,10 @@ func _on_Timer_timeout():
 	get_parent().add_child(pw)
 	
 	pw.set_position(Vector2(
-	rand_range(get_parent().get_node("Area2D/left").get_global_position().x,
-	get_parent().get_node("Area2D/right").get_global_position().x),
-	rand_range(get_parent().get_node("Area2D/up").get_global_position().y,
-	get_parent().get_node("Area2D/down").get_global_position().y)))
+	rand_range(get_parent().get_node("map/left").get_global_position().x,
+	get_parent().get_node("map/right").get_global_position().x),
+	rand_range(get_parent().get_node("map/up").get_global_position().y,
+	get_parent().get_node("map/down").get_global_position().y)))
 	print(pw.position)
 	
 	timerNode.set_wait_time(rand_range(minWaitTime, maxWaitTime))

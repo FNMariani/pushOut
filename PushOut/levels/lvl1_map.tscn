@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Sprites/Fondo/squareArea.png" type="Texture" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 508.608, 505.663 )
+
+[node name="lvl1_map" type="Area2D"]
+editor/display_folded = true
+position = Vector2( 645, 355 )
+scale = Vector2( 0.85, 0.5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -512.0
+margin_top = -512.0
+margin_right = 512.0
+margin_bottom = 512.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -2.72998, -2.9458 )
+shape = SubResource( 1 )
+
+[node name="up" type="Position2D" parent="."]
+position = Vector2( -13.6503, -503.137 )
+
+[node name="left" type="Position2D" parent="."]
+position = Vector2( -501.917, 39.0849 )
+
+[node name="right" type="Position2D" parent="."]
+position = Vector2( 502.78, -197.603 )
+
+[node name="down" type="Position2D" parent="."]
+position = Vector2( -21.2947, 500.965 )
