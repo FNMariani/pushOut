@@ -22,7 +22,9 @@ func _on_BackButton_pressed():
 	get_tree().change_scene("res://Menu/Menu.tscn")
 
 func _input(event):
-   if(event.is_pressed()):
-      if(event.scancode == KEY_ESCAPE):
-         get_tree().change_scene("res://Menu/Menu.tscn")
+	#Escape para salir al menu
+	if (event is InputEventKey):
+		if(event.is_pressed()):
+			if(event.scancode == KEY_ESCAPE):
+				get_tree().change_scene("res://Menu/Menu.tscn")
 		#get_tree().quit() 

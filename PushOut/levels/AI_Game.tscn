@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://GameManager.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Fondo/Nebula Blue.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Fondo/Nebula Blue.jpg" type="Texture" id=2]
 [ext_resource path="res://Sprites/Fondo/Stars Small_1.png" type="Texture" id=3]
 [ext_resource path="res://levels/lvl1_map.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=5]
@@ -17,19 +17,19 @@
 [ext_resource path="res://sounds/sfx_hit_[motion-s].wav" type="AudioStream" id=15]
 [ext_resource path="res://Menu/BackButton.tscn" type="PackedScene" id=16]
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 7 )
 shader_param/alpha = null
 
-[sub_resource type="PhysicsMaterial" id=3]
+[sub_resource type="PhysicsMaterial" id=2]
 friction = 0.0
 bounce = 5000.0
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 64
 font_data = ExtResource( 9 )
 
-[sub_resource type="ShaderMaterial" id=5]
+[sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 7 )
 shader_param/alpha = null
 
@@ -75,10 +75,10 @@ one_shot = true
 
 [node name="Enemy" parent="." instance=ExtResource( 6 )]
 editor/display_folded = true
-material = SubResource( 2 )
+material = SubResource( 1 )
 position = Vector2( 959.485, 351.497 )
 mode = 2
-physics_material_override = SubResource( 3 )
+physics_material_override = SubResource( 2 )
 script = ExtResource( 8 )
 
 [node name="TimerP2" type="Timer" parent="Enemy"]
@@ -89,7 +89,7 @@ one_shot = true
 anchor_right = 1.0
 margin_top = 150.357
 margin_bottom = 225.357
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 align = 1
 valign = 1
 script = ExtResource( 10 )
@@ -103,7 +103,7 @@ margin_left = -640.0
 margin_top = -37.5
 margin_right = 640.0
 margin_bottom = 37.5
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "READY?"
 align = 1
 valign = 1
@@ -117,7 +117,7 @@ position = Vector2( 1164.99, 359.07 )
 
 [node name="CubeShader" type="Sprite" parent="."]
 visible = false
-material = SubResource( 5 )
+material = SubResource( 4 )
 position = Vector2( 203.805, 206.022 )
 texture = ExtResource( 12 )
 script = ExtResource( 13 )
@@ -137,6 +137,7 @@ one_shot = true
 autostart = true
 
 [node name="BackButton" parent="." instance=ExtResource( 16 )]
+script = null
 [connection signal="body_shape_exited" from="map" to="Player" method="_on_Area2D_body_shape_exited"]
 [connection signal="body_shape_exited" from="map" to="Enemy" method="_on_Area2D_body_shape_exited"]
 [connection signal="body_entered" from="Player" to="Player" method="_on_Player_body_entered"]

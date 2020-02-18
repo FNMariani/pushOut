@@ -10,6 +10,7 @@ export var move_speed = 300.0
 #Shader
 var time = 0
 
+var mag = preload("res://PowerUps/Magnet.tscn")
 var power_up = false
 var pw_type = ""
 var timer = null
@@ -90,6 +91,8 @@ func power_up(_pw_type):
 		pw_expand()
 	if pw_type == "speed":
 		pw_speed()
+	if pw_type == "magnet":
+		pw_magnet()
 
 func pw_speed():
 	if(power_up):
@@ -104,6 +107,13 @@ func pw_expand():
 	else:
 		self.get_child(0).set_scale(self.get_child(0).get_scale()/2)
 		self.get_child(1).set_scale(self.get_child(1).get_scale()/2)
+		
+func pw_magnet():
+	if(power_up):
+		var pw = mag.instance()
+		add_child(pw)
+	else:
+		get_node("Magnet").queue_free()
 	
 func on_timeout_pw_complete():
 	power_up = false
@@ -111,6 +121,8 @@ func on_timeout_pw_complete():
 		pw_expand()
 	if pw_type == "speed":
 		pw_speed()
+	if pw_type == "magnet":
+		pw_magnet()
 	
 func create_timer():
 	timer = Timer.new()

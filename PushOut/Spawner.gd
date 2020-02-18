@@ -2,7 +2,8 @@ extends Node
 
 export var powerups = [
 	preload("res://PowerUps/pw_expand.tscn"),
-	preload("res://PowerUps/pw_speed.tscn")
+	preload("res://PowerUps/pw_speed.tscn"),
+	preload("res://PowerUps/pw_magnet.tscn")
 ]
 
 export (NodePath) var timerPath

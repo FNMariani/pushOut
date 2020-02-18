@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://GameManager.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Fondo/Nebula Red.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Fondo/Nebula Red.jpg" type="Texture" id=2]
 [ext_resource path="res://Sprites/Fondo/Stars Small_1.png" type="Texture" id=3]
 [ext_resource path="res://stars.gd" type="Script" id=4]
 [ext_resource path="res://Sprites/Fondo/circleArena.png" type="Texture" id=5]
@@ -183,7 +183,7 @@ margin_left = 41.0
 margin_top = 4.0
 margin_right = 141.0
 margin_bottom = 64.0
-script = null
+scenes = [ "res://Menu/Menu.tscn" ]
 
 [node name="Spawner" type="Node" parent="."]
 script = ExtResource( 15 )

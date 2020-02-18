@@ -24,4 +24,5 @@ func _on_Enemy_p2_die():
 	create_timer()
 
 func on_timeout_complete():
-	get_tree().reload_current_scene()
+	get_tree().change_scene("res://Menu/Menu.tscn")
+	#get_tree().reload_current_scene()
